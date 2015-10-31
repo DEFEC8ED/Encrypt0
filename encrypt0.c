@@ -8,7 +8,8 @@
 #include <openssl/evp.h>
 #include <openssl/buffer.h>
 
-#include "enc.h" 
+#include "enc.h"
+#include "colors.h"
 
 #define SIZE 256
 #define NEXT printf("\n"); /* to avoid maximum  mess :) */
@@ -35,27 +36,29 @@ int main(int argc, char *argv[])
 
   srand((unsigned int)time(0) + getpid()); /* changes the pass-gen immediately */
   
-  signal(SIGINT, a_trap);
+  signal(SIGINT, a_trap); // Trap mechanism for CTRL + C
   
+  // Party can begin
   switch (argc) /* using the switch base on the number of arguements (easy to manage later on) */
     {
       
     case 1:
       
-      printf("Too Little Arguements.\n");
+      printf("Too Little Arguments.\n");
+      printf("Check %s-h%s, %s--help%s for the usage menu.\n", red, normal, red, normal);
       
       break;
 
     case 2:
       
-      if ((strncmp(argv[1], "--help", 7) == 0) || (strncmp(argv[1], "--HELP", 7) == 0))
+      if ((strncmp(argv[1], "-h", 2) == 0) || (strncmp(argv[1], "--help", 6) == 0))
 	{
 	  help_info(); /* Displays the help page */
 	}
 
       else
 	{
-	  printf("You mean the --help command ?\n");
+	  printf("You mean the %s-h%s, %s--help%s commands?\n", red, normal, red, normal);
 	}
       
       break;
@@ -137,8 +140,9 @@ int main(int argc, char *argv[])
       else if ((strncmp(argv[1], "--Es", 5) == 0) && (strncmp(argv[2], "-hs", 4) == 0))
 	{
 	  system("clear");
+	  printf("Hexadecimal is: %s\n", argv[3]);
 
-	  ;
+	  hex_to_string(argv[3]);  
 	}
 
       else if ((strncmp(argv[1], "--Grs", 6) == 0) && (strncmp(argv[2], "-ul", 4) == 0))
@@ -176,7 +180,7 @@ int main(int argc, char *argv[])
 
 	  output = en_base64(string, strlen(string)); /* calls function which uses the openssl lib functions */
 
-	  printf("|String: %s\n|Base64: %s\n", string, output);
+	  printf("String: %s\nBase64: %s\n", string, output);
 
 	  NEXT
 	}
@@ -191,7 +195,7 @@ int main(int argc, char *argv[])
 
 	  output = decode_base64(base64, strlen(base64)); /* calls function which uses the openssl lib functions */
 
-	  printf("|Base64: %s|String: %s\n", base64, output);
+	  printf("Base64: %sString: %s\n", base64, output);
 	  
 	  NEXT
 	  

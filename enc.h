@@ -4,6 +4,7 @@
 
 /* Compile (gcc -o encrypt0 encrypt0.c -lm) */
 /* run in (terminal/console) --> [./encrypt] with whatever option you want */
+#include "colors.h"
 
 extern int dir;
 /******************************************************************/
@@ -19,44 +20,44 @@ void help_info(void)
   printf("                       |___/|_| \n\n");
  
 
-  printf("\n\t\t[E n c r y t 0] (v1.0)\n\n");
-  printf("Designed by: Zapchast & Sunrix\n\n");
+  printf("\t\t[E n c r y p t 0] (v1.0)\n\n");
+  printf("%sDesigned by%s: Zapchast & Sunrix\n\n", blue, normal);
   
   printf("Usage: ./encrypt0 [Choice Main] [Es-Options] [String, intergers, Encrypted String]\n");
   printf("Usage: ./encrypt0 [Choice Main] [Etx- Options] [source.txt] [final.txt]\n");
   printf("Usage: ./encrypt0 [Choice Main] [Grs- Options] [Length]\n\n");
   
-  printf("Help:\n");
+  printf("%sHelp%s:\n", red, normal);
   
-  printf("\t|MAIN|\n\n");
+  printf("\t%s[%s MAIN %s]%s\n\n", blue, normal, blue, normal);
 
   printf("\t--Es [Encrypt strings]\n");
   printf("\t--Etx [Encrypt Text Documents]\n");
   printf("\t--Grs [Generate Random Strings]\n\n");
 
-  printf("\t|--Es OPTIONS|\n\n");
+  printf("\t%s[%s --Es OPTIONS %s]%s\n\n", blue, normal, blue, normal);
 
-  printf("\t-sne [Shift By (N) Encryption]\n"); //done 
-  printf("\t-snd [Shift By (N) Decryption]\n"); // done
-  printf("\t-exor [XOR Encryption]\n"); // done
-  printf("\t-dxor [XOR Decryption]\n"); // done
-  printf("\t-sh [String to Hexadecimal]\n"); // done
-  printf("\t-hs [Hexadecimal to String]\n"); // under progress
-  printf("\t-e64 [Base 64 Encoding]\n"); // done
-  printf("\t-d64 [Base 64 Decoding]\n"); // done
-  printf("\t-db [Decimal to Binay]\n"); // done
-  printf("\t-bd [Binary to Decimal]\n\n"); // done
+  printf("\t-sne [Shift By (N) Encryption]\n");  
+  printf("\t-snd [Shift By (N) Decryption]\n"); 
+  printf("\t-exor [XOR Encryption]\n"); 
+  printf("\t-dxor [XOR Decryption]\n"); 
+  printf("\t-sh [String to Hexadecimal]\n"); 
+  printf("\t-hs [Hexadecimal to String]\n");
+  printf("\t-e64 [Base 64 Encoding]\n");
+  printf("\t-d64 [Base 64 Decoding]\n"); 
+  printf("\t-db [Decimal to Binay]\n"); 
+  printf("\t-bd [Binary to Decimal]\n\n"); 
 
-  printf("\t|--Etx OPTIONS|\n\n");
+  printf("\t%s[%s --Etx OPTIONS %s]%s\n\n", blue, normal, blue, normal);
 
-  printf("\t-sne [Shift By (N) Encryption]------> -sne[File for Shift By (N) Encryption]\n"); //done
-  printf("\t-snd [Shift By (N) Decryption]------> -snd[File for Shift By (N) Decryption]\n\n");  //done
+  printf("\t-sne [File for Shift By (N) Encryption] [Output File]\n"); 
+  printf("\t-snd [File for Shift By (N) Decryption] [Output File]\n\n");  
   
-  printf("\t|--Grs OPTIONS]\n\n");
+  printf("\t%s[%s --Grs OPTIONS %s]%s\n\n", blue, normal, blue, normal);
 
-  printf("\t-ul [Generate random string (Upper + Lower )]\n"); // done
-  printf("\t-uln [Generate random string (Upper + Lower + Numbers)]\n"); // done
-  printf("\t-ulns [Generate random string (Upper + Lower + Numbers + Special Chars)]\n\n"); // done
+  printf("\t-ul [Generate random string (Upper + Lower )] [Length]\n");
+  printf("\t-uln [Generate random string (Upper + Lower + Numbers)] [Length]\n");
+  printf("\t-ulns [Generate random string (Upper + Lower + Numbers + Special Chars)] [Length]\n\n");
 
   exit(0);
 }
@@ -159,16 +160,27 @@ void string_to_hex(char *str)
   int i;
 
   for (i = 0; str[i] != '\0'; i++)
-    {
-      
-      
-      printf("0x%x ", str[i]);
-    }
+  {
+     printf("0x%x ", str[i]);
+  }
 
   printf("\n");
 
   str[i] = '\0';
 }
+/***************************************/
+char hex_to_string(char *hex)
+{
+  char hexad[1024], string[1024];
+  
+  strncpy(hexad, hex, sizeof(hexad));
+  snprintf(string, sizeof(string), "echo %s | xxd -r -p\n", hexad);
+  system(string);
+
+  printf("\n");
+  return 0;
+}
+
 /***************************************/
 void num_to_bin(char *string)
 {
