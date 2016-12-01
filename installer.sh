@@ -11,4 +11,4 @@ sudo apt-get install libssl-dev
 echo "[+] Compiling program..." | grep "+" --color
 gcc encrypt0.c -o encrypt0 -lm -lcrypto
 
-echo "[+] Program prepared. Enjoy it!" | grep "+" --color 
+echo "[+] Program prepared. Enjoy it!" | grep "+" --color
