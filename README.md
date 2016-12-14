@@ -5,3 +5,4 @@
 # Add
 - charencode
 - doublecharencode
+- We have to improve error handling
